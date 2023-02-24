@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:5.0
+    platform: linux/x86_64
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MYMONGODB_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MYMONGODB_PASSWORD
+      TZ: Europe/Paris
+    volumes:
+      - mongodb:/var/lib/mongodb
+  web_app:
+    depends_on:
+      - mongo
+    build: ./web
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "80:80"
+    environment:
+      - PORT=$NODE_DOCKER_PORT
+      - MONGO_HOST=$MYMONGODB_HOST
+      - MONGO_USER=$MYMONGODB_USER
+      - MONGO_PASSWORD=$MYMONGODB_PASSWORD
+      - MONGO_DBNAME=$MYMONGODB_DATABASE
+      - MONGO_PORT=$MYMONGODB_DOCKER_PORT
+    volumes:
+      - data_web:/www
+volumes:
+  mongodb:
+  data_web:
