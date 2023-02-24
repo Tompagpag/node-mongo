@@ -3,7 +3,7 @@ dotenv.config();
 import mongoose from "mongoose";
 
 const mongoConfig =
-  "mongodb+srv://tompagpro:tvcTD7siEUeHebav@cluster0.r9hjvfn.mongodb.net/?retryWrites=true&w=majority";
+  `mongodb+srv://${process.env.user}:${process.env.mdp}@cluster0.r9hjvfn.mongodb.net/?retryWrites=true&w=majority`;
 
 console.log(`${mongoConfig}\n\n`);
 

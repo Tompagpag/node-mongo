@@ -1,2 +1,3 @@
 /web/www/node_modules
 .env
+/web/www/.env
